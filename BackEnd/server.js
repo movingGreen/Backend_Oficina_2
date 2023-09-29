@@ -9,9 +9,9 @@ const passport = require("passport");
 /*
  IMPORTAR ROTAS
 */
-const userRoutes = require("./routes/userRoutes");
-const addressRoutes = require("./routes/addressRoutes");
-const orderRoutes = require("./routes/orderRoutes");
+const usuarioRotas = require("./routes/usuarioRotas");
+const produtosRotas = require("./routes/produtosRotas");
+const pedidosRotas = require("./routes/pedidosRotas");
 
 const port = process.env.PORT || 3000;
 
@@ -32,8 +32,8 @@ app.disable("x-powered-by");
 app.set("port", port);
 
 //  CHAMANDO AS ROTAS
-userRoutes(app, upload);
-addressRoutes(app);
+usuarioRotas(app, upload);
+produtosRotas(app);
 orderRoutes(app);
 
 server.listen(3000, "192.168.0.4" || "localhost", function () {
