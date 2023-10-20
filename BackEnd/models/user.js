@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 
 const Usuario = {};
 
-Usuario.encontrePorId = (id, result) => {
+Usuario.getDadosPorId = (id, result) => {
   const sql = `
         select
             U.id_usuario,
@@ -25,13 +25,13 @@ Usuario.encontrePorId = (id, result) => {
       console.log("Erro:", err);
       result(err, null);
     } else {
-      console.log("Usuario recebido:", usuario);
+      console.log("Usuario não encontrado:", usuario);
       result(null, usuario);
     }
   });
 };
 
-Usuario.criar = async (usuario, result) => {
+Usuario.setUsuario = async (usuario, result) => {
   const hash = await bcrypt.hash(usuario.senha, 10);
 
   const sql = `
@@ -52,48 +52,42 @@ Usuario.criar = async (usuario, result) => {
     sql,
     [
       usuario.nome,
-      usuario.name,
-      usuario.lastname,
-      usuario.phone,
-      usuario.image,
       hash,
-      new Date(),
-      new Date(),
+      usuario.cpf,
+      usuario.email,
+      usuario.telefone,
+      usuario.tipo_usuario,
+      usuario.endereco,
     ],
     (err, res) => {
       if (err) {
         console.log("Erro:", err);
         result(err, null);
       } else {
-        console.log("Id do novo usuario:", res.insertId);
-        result(null, res.insertId);
+        console.log("Id do novo usuario:", res.usuarioId);
+        result(null, res.usuarioId);
       }
     }
   );
 };
 
-Usuario.findDeliveryMen = (result) => {
+Usuario.login = async (loginUsuario, loginSenha, result) => {
+  const loginSenhaHash = await bcrypt.hash(loginSenha, 10);
+
   const sql = `
     select
-        U.id,
-        U.email,
-        U.name,
-        U.lastname,
-        U.image,
-        U.phone,
-        U.notification_token
+      U.nome,
+      U.cpf,
+      U.email,
+      U.telefone,
+      U.tipo_usuario,
+      U.endereco
     from 
-        usuarios as U
-    inner join
-        usuario_has_roles as UHR
-    on 
-        UHR.id_usuario = U.id
-    inner join
-        roles as R
-    on 
-        R.id = UHR.id_rol
+      usuario as U
     where 
-        R.id = 2;
+      U.nome = ${loginUsuario}
+    AND
+      U.senha = ${loginSenhaHash};
     `;
 
   db.query(sql, (err, data) => {
