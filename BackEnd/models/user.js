@@ -100,133 +100,61 @@ Usuario.login = async (loginUsuario, loginSenha, result) => {
   });
 };
 
-Usuario.findByEmail = (email, result) => {
+Usuario.updateUsuario = (usuario, result) => {
   const sql = `
-        select
-            U.id,
-            U.email,
-            U.name,
-            U.lastname,
-            U.image,
-            U.phone,
-            U.password,
-            JSON_ARRAYAGG(
-                JSON_OBJECT(
-                    'id', CONVERT(R.id, char),
-                    'name', R.name,
-                    'image', R.image,
-                    'route', R.route          
-                )
-            ) AS roles
-        from
-            usuarios AS U
-        INNER JOIN 
-            usuario_has_roles AS UHR
-        ON
-            UHR.id_usuario = U.id
-        INNER JOIN
-            roles AS R
-        ON
-            UHR.id_rol = R.id
-        WHERE 
-            U.email = ?
-        GROUP BY
-            U.id
-    `;
-
-  db.query(sql, [email], (err, usuario) => {
-    if (err) {
-      console.log("Erro:", err);
-      result(err, null);
-    } else {
-      console.log("Usuario recebido:", usuario[0]);
-      result(null, usuario[0]);
-    }
-  });
-};
-
-Usuario.update = (usuario, result) => {
-  const sql = `
-    UPDATE
-        usuarios
-    SET
-        name = ?,
-        lastname = ?,
-        phone = ?,
-        image = ?,
-        updated_at = ?
+    update 
+      usuario
+    set
+      name = ?,
+      cpf = ?,
+      email = ?,
+      telefone = ?,
+      tipo_usuario = ?,
+      endereco = ?
     WHERE
-        id = ?;
-    `;
+      id_usuario = ?
+    ;
+  `;
 
   db.query(
     sql,
     [
-      usuario.name,
-      usuario.lastname,
-      usuario.phone,
-      usuario.image,
-      new Date(),
-      usuario.id,
+      usuario.nome,
+      usuario.cpf,
+      usuario.email,
+      usuario.telefone,
+      usuario.tipo_usuario,
+      usuario.endereco,
+      usuario.id_usuario,
     ],
-    (err, res) => {
+    (err, usuario) => {
       if (err) {
         console.log("Erro:", err);
         result(err, null);
       } else {
-        console.log("Usuario atualizado", usuario.id);
-        result(null, usuario.id);
+        console.log("Usuario atualizado:", usuario[0]);
+        result(null, usuario[0]);
       }
     }
   );
 };
 
-Usuario.updateWithoutImage = (usuario, result) => {
+Usuario.deleteUsuarioPorId = (id_usuario, result) => {
   const sql = `
-        UPDATE
-            usuarios
-        SET
-            name = ?,
-            lastname = ?,
-            phone = ?,
-            updated_at = ?
-        WHERE
-            id = ?;
+    DELETE
+    FROM
+      usuario as U
+    WHERE
+      U.id_usuario = ?;
     `;
 
-  db.query(
-    sql,
-    [usuario.name, usuario.lastname, usuario.phone, new Date(), usuario.id],
-    (err, res) => {
-      if (err) {
-        console.log("Erro:", err);
-        result(err, null);
-      } else {
-        console.log("Usuario atualizado", usuario.id);
-        result(null, usuario.id);
-      }
-    }
-  );
-};
-
-Usuario.updateNotificationToken = (id, token, result) => {
-  const sql = `
-        UPDATE
-            usuarios
-        SET
-            notification_token = ?,
-            updated_at = ?
-        WHERE
-            id = ?
-    `;
-
-  db.query(sql, [token, new Date(), id], (err, res) => {
+  db.query(sql, [id_usuario], (err, res) => {
     if (err) {
       console.log("Erro:", err);
       result(err, null);
     } else {
-      console.log("Usuario atualizado", id);
-      result(null, id);
+      console.log("Usuario deletetado", id_usuario);
+      result(null, id_usuario);
     }
   });
 };
