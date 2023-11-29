@@ -153,7 +153,7 @@ Usuario.deleteUsuarioPorId = (id_usuario, result) => {
       console.log("Erro:", err);
       result(err, null);
     } else {
-      console.log("Usuario deletetado", id_usuario);
+      console.log("Usuario deletado", id_usuario);
       result(null, id_usuario);
     }
   });

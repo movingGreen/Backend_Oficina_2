@@ -1,5 +1,4 @@
 const db = require("../config/config");
-const bcrypt = require("bcryptjs");
 
 const Produto = {};
 
@@ -102,7 +101,7 @@ Usuario.deleteProduto = (id_produto, result) => {
       console.log("Erro:", err);
       result(err, null);
     } else {
-      console.log("Produto deletetado", id_produto);
+      console.log("Produto deletado", id_produto);
       result(null, id_produto);
     }
   });
