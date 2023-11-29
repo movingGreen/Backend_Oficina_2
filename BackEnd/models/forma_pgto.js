@@ -13,18 +13,18 @@ FormaPagamento.getTipoDePagamentoPorId = (id_forma_pgto, result) => {
       ;
     `;
 
-  db.query(sql, [id_forma_pgto], (err, formaPagamento) => {
+  db.query(sql, [id_forma_pgto], (err, forma_pgto) => {
     if (err) {
       console.log("Erro:", err);
       result(err, null);
     } else {
-      console.log("Forma de pagamento encontrada:", formaPagamento);
-      result(null, formaPagamento);
+      console.log("Forma de pagamento encontrada:", forma_pgto);
+      result(null, forma_pgto);
     }
   });
 };
 
-FormaPagamento.setTipoDePagamento = (formaPagamento, result) => {
+FormaPagamento.setTipoDePagamento = (forma_pgto, result) => {
   const sql = `
       INSERT INTO
         forma_pgto(
@@ -34,21 +34,18 @@ FormaPagamento.setTipoDePagamento = (formaPagamento, result) => {
       ;
     `;
 
-  db.query(sql, [formaPagamento.tipo_pgto], (err, formaPagamento) => {
+  db.query(sql, [forma_pgto.tipo_pgto], (err, forma_pgto) => {
     if (err) {
       console.log("Erro:", err);
       result(err, null);
     } else {
-      console.log(
-        "Id da nova forma de pagamento:",
-        formaPagamento.id_forma_pgto
-      );
-      result(null, formaPagamento);
+      console.log("Id da nova forma de pagamento:", forma_pgto.id_forma_pgto);
+      result(null, forma_pgto);
     }
   });
 };
 
-FormaPagamento.updateTipoDePagamento = (formaPagamento, result) => {
+FormaPagamento.updateTipoDePagamento = (forma_pgto, result) => {
   const sql = `
     update 
       forma_pgto
@@ -61,14 +58,14 @@ FormaPagamento.updateTipoDePagamento = (formaPagamento, result) => {
 
   db.query(
     sql,
-    [formaPagamento.tipo_pgto, formaPagamento.id_forma_pgto],
-    (err, formaPagamento) => {
+    [forma_pgto.tipo_pgto, forma_pgto.id_forma_pgto],
+    (err, forma_pgto) => {
       if (err) {
         console.log("Erro:", err);
         result(err, null);
       } else {
-        console.log("Forma de pagamento atualizada:", formaPagamento);
-        result(null, formaPagamento);
+        console.log("Forma de pagamento atualizada:", forma_pgto);
+        result(null, forma_pgto);
       }
     }
   );

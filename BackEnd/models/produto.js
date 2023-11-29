@@ -2,7 +2,7 @@ const db = require("../config/config");
 
 const Produto = {};
 
-Produto.getDadosProdutoPorId = (id, result) => {
+Produto.getDadosProdutoPorId = (id_produto, result) => {
   const sql = `
       select
         *
@@ -13,7 +13,7 @@ Produto.getDadosProdutoPorId = (id, result) => {
       ;
     `;
 
-  db.query(sql, [id], (err, produto) => {
+  db.query(sql, [id_produto], (err, produto) => {
     if (err) {
       console.log("Erro:", err);
       result(err, null);
@@ -46,7 +46,7 @@ Produto.setProduto = (produto, result) => {
         result(err, null);
       } else {
         console.log("Id do novo produto:", produto.id_produto);
-        result(null, produto);
+        result(null, produto.id_produto);
       }
     }
   );

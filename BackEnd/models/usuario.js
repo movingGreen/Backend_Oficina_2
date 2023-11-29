@@ -64,8 +64,8 @@ Usuario.setUsuario = async (usuario, result) => {
         console.log("Erro:", err);
         result(err, null);
       } else {
-        console.log("Id do novo usuario:", res.usuarioId);
-        result(null, res.usuarioId);
+        console.log("Id do novo usuario:", res.id_usuario);
+        result(null, res.id_usuario);
       }
     }
   );
@@ -85,12 +85,13 @@ Usuario.login = async (loginUsuario, loginSenha, result) => {
     from 
       usuario as U
     where 
-      U.nome = ${loginUsuario}
+      U.nome = ?
     AND
-      U.senha = ${loginSenhaHash};
+      U.senha = ?
+    ;
     `;
 
-  db.query(sql, (err, data) => {
+  db.query(sql, [loginUsuario, loginSenhaHash], (err, data) => {
     if (err) {
       console.log("Erro:", err);
       result(err, null);
