@@ -17,7 +17,7 @@ module.exports = (app) => {
   );
 
   app.delete(
-    "/api/forma_pgto/deletetipoDePagamento:id_forma_pgto",
+    "/api/forma_pgto/deletetipoDePagamento/:id_forma_pgto",
     forma_pgtoController.deletetipoDePagamento
   );
 };

@@ -11,7 +11,7 @@ module.exports = (app) => {
   app.put("/api/pedido/updatePedido", pedidoController.updatePedido);
 
   app.delete(
-    "/api/pedido/deletePedido:id_pedido",
+    "/api/pedido/deletePedido/:id_pedido",
     pedidoController.deletePedido
   );
 };

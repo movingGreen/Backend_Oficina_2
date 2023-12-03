@@ -60,7 +60,7 @@ Produto.updateProduto = (produto, result) => {
       nome = ?,
       vlr_produto = ?,
       descricao = ?,
-      img = ?,
+      img = ?
     WHERE
       id_produto = ?
     ;

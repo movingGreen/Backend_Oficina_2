@@ -65,7 +65,7 @@ Pedido.updatePedido = (pedido, result) => {
       descricao = ?,
       vlr_total = ?,
       id_usuario = ?,
-      id_forma_pgto = ?,
+      id_forma_pgto = ?
     WHERE
       id_pedido = ?
     ;

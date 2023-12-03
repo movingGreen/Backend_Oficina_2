@@ -28,7 +28,7 @@ FormaPagamento.setTipoDePagamento = (forma_pgto, result) => {
   const sql = `
       INSERT INTO
         forma_pgto(
-          tipo_pgto,
+          tipo_pgto
         )
       VALUES(?)
       ;
@@ -50,7 +50,7 @@ FormaPagamento.updateTipoDePagamento = (forma_pgto, result) => {
     update 
       forma_pgto
     set
-      tipo_pgto = ?,
+      tipo_pgto = ?
     WHERE
       id_forma_pgto = ?
     ;

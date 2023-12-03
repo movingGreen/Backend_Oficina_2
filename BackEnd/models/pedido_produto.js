@@ -64,7 +64,7 @@ PedidoProduto.updatePedidoProduto = (pedidoProduto, result) => {
     update 
       pedido_produto
     set
-      qtd_produto = ?,
+      qtd_produto = ?
     WHERE
       id_pedido = ?
     AND

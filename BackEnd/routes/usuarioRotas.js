@@ -18,7 +18,7 @@ module.exports = (app) => {
   app.put("/api/usuario/updateUsuario", usuarioController.updateUsuario);
 
   app.delete(
-    "/api/usuario/deleteUsuarioPorId:id_usuario",
+    "/api/usuario/deleteUsuarioPorId/:id_usuario",
     usuarioController.deleteUsuarioPorId
   );
 };
