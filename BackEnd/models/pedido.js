@@ -92,7 +92,7 @@ Pedido.updatePedido = (pedido, result) => {
   );
 };
 
-Usuario.deletePedidoPorId = (id_pedido, result) => {
+Pedido.deletePedidoPorId = (id_pedido, result) => {
   const sql = `
     DELETE
     FROM

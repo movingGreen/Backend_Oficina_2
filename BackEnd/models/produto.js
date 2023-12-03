@@ -52,7 +52,7 @@ Produto.setProduto = (produto, result) => {
   );
 };
 
-Usuario.updateProduto = (produto, result) => {
+Produto.updateProduto = (produto, result) => {
   const sql = `
     update 
       produto
@@ -87,7 +87,7 @@ Usuario.updateProduto = (produto, result) => {
   );
 };
 
-Usuario.deleteProduto = (id_produto, result) => {
+Produto.deleteProduto = (id_produto, result) => {
   const sql = `
     DELETE
     FROM
