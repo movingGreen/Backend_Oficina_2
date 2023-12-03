@@ -3,7 +3,7 @@ const app = express();
 const http = require("http");
 const server = http.createServer(app);
 const cors = require("cors");
-const passport = require("passport");
+// const passport = require("passport");
 
 /*
  IMPORTAR ROTAS
@@ -23,10 +23,10 @@ app.use(
   })
 );
 app.use(cors());
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-require("./config/passport")(passport);
+// require("./config/passport")(passport);
 
 app.disable("x-powered-by");
 
